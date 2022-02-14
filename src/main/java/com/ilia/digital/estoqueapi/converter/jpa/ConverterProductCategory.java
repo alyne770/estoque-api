@@ -1,4 +1,4 @@
-package com.ilia.digital.estoqueapi.converter;
+package com.ilia.digital.estoqueapi.converter.jpa;
 
 import com.ilia.digital.estoqueapi.domain.ProductCategory;
 
