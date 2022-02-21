@@ -8,10 +8,10 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 @Getter
 public enum ProductCategory {
-    SPORT("Sport", 1),
-    DOMESTIC("Domestic" ,2),
-    HOBBY("Hobby",3),
-    ELECTRONICS("Electronics",4);
+    SPORT("Sport", 0),
+    DOMESTIC("Domestic" ,1),
+    HOBBY("Hobby",2),
+    ELECTRONICS("Electronics",3);
 
     private final String label;
     private final int value;

@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Properties;
 
 
 @Slf4j
@@ -22,7 +21,9 @@ import java.util.Properties;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+
     private final ModelMapper modelMapper;
+
     @Override
     public Product findById(long id) {
         log.info("ProductServiceImpl.findById - start - input [{}]", id);
@@ -32,8 +33,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Page<Product> findAByNameOrCode(Pageable pageable, String searchTerm) {
+        log.info("ProductServiceImpl.findAll - start - input [{}]", searchTerm);
+
+        return productRepository.findAByNameOrCode(pageable,searchTerm);
     }
 
     @Override

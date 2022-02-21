@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface ProductService {
 
     Product findById(long id);
-    Page<Product> findAll(Pageable pageable);
+    Page<Product> findAByNameOrCode(Pageable pageable, String searchTerm);
     Product create(CreateProductDto createProductDto);
     Product replace ( Product product);
     String generateCode();

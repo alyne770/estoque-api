@@ -1,26 +1,50 @@
 package com.ilia.digital.estoqueapi.controller;
 
+import com.ilia.digital.estoqueapi.util.PageableUtil;
+import com.ilia.digital.estoqueapi.domain.Product;
+import com.ilia.digital.estoqueapi.dto.CreateProductDto;
 import com.ilia.digital.estoqueapi.service.product.ProductService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/product")
+@RequiredArgsConstructor
 public class ProductController {
-    ProductService productService;
+    private final ProductService   productService;
 
     @GetMapping
-    public void findAll(@RequestParam(value ="page") final Integer page,
-                        @RequestParam(value ="size") final Integer size,
-                        @RequestParam (value ="sort")final  List<String> sort){
+    public Page<Product> search(@RequestParam(value = "page", required = false) final Integer page,
+                                @RequestParam(value = "size", required = false) final Integer size,
+                                @RequestParam(value = "sort") final String sort,
+                                @RequestParam(value = "orderBy") final String orderBy,
+                                @RequestParam(value = "searchTerm", required = false, defaultValue = "") final String searchTerm)
+                    {
 
-        log.info("ProductServiceImpl.create - start - input  [{},{},{}]",page, size,sort);
+        log.info("ProductController.search - start - input  [{},{},{},{}]", page, size, sort, searchTerm);
 
+        return productService.findAByNameOrCode(PageableUtil.configuringPageable(page, size, sort,orderBy ),searchTerm);
     }
 
+
+    @PostMapping
+    public ResponseEntity<Product> create(@RequestBody CreateProductDto createProductDto)
+    {
+
+        log.info("ProductController.create - start - input  [{}]", createProductDto);
+        Product productSaved = productService.create(createProductDto);
+        log.info("ProductController.create - start - outPut  [{}]", productSaved);
+        return  new ResponseEntity<>(productSaved, HttpStatus.CREATED);
+    }
 }
+
+
