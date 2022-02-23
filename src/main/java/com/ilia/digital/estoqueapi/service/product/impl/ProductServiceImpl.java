@@ -6,6 +6,7 @@ import com.ilia.digital.estoqueapi.dto.CreateProductDto;
 import com.ilia.digital.estoqueapi.exception.BadRequestException;
 import com.ilia.digital.estoqueapi.repository.ProductRepository;
 import com.ilia.digital.estoqueapi.service.product.ProductService;
+import com.ilia.digital.estoqueapi.util.CodeUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.DecimalFormat;
+import java.util.Random;
 
 
 @Slf4j
@@ -46,7 +49,17 @@ public class ProductServiceImpl implements ProductService {
         log.info("ProductServiceImpl.create - start - input  [{}]", createProductDto);
         Product product = modelMapper.map(createProductDto, Product.class);
 
-        Product productSaved =productRepository.save(product);
+
+        do{
+            String code = CodeUtil.generateCode(product.getProductCategory());
+            if(! productRepository.findByCode(code).isPresent()){
+                product.setCode(code);
+            }
+        }while (product.getCode() == null);
+
+
+
+        Product productSaved = productRepository.save(product);
         log.info("ProductServiceImpl.create - end- output [{}]", productSaved);
         return productSaved;
     }

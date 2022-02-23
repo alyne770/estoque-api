@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
 
 @Slf4j
@@ -37,7 +38,7 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody CreateProductDto createProductDto)
+    public ResponseEntity<Product> create(@Valid  @RequestBody CreateProductDto createProductDto)
     {
 
         log.info("ProductController.create - start - input  [{}]", createProductDto);
