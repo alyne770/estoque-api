@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.DecimalFormat;
-import java.util.Random;
 
 
 @Slf4j
@@ -30,16 +28,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(long id) {
         log.info("ProductServiceImpl.findById - start - input [{}]", id);
-        return productRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException(ErrorCodes.PRODUCT_NOT_FOUND.getMessage()));
+        Product productFound = productRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException(ErrorCodes.PRODUCT_NOT_FOUND));
+        log.info("ProductServiceImpl.findById - end - output [{}]", productFound.getId());
+        return productFound;
 
     }
 
     @Override
     public Page<Product> findAByNameOrCode(Pageable pageable, String searchTerm) {
         log.info("ProductServiceImpl.findAll - start - input [{}]", searchTerm);
-
-        return productRepository.findAByNameOrCode(pageable,searchTerm);
+        Page<Product> productPage = productRepository.findAByNameOrCode(pageable, searchTerm);
+        log.info("ProductServiceImpl.findAll - end - output [{}]", productPage.getTotalElements());
+        return productPage;
     }
 
     @Override
@@ -49,28 +50,31 @@ public class ProductServiceImpl implements ProductService {
         log.info("ProductServiceImpl.create - start - input  [{}]", createProductDto);
         Product product = modelMapper.map(createProductDto, Product.class);
 
-
-        do{
-            String code = CodeUtil.generateCode(product.getProductCategory());
-            if(! productRepository.findByCode(code).isPresent()){
-                product.setCode(code);
-            }
-        }while (product.getCode() == null);
-
-
+        generateCodeValid(product);
 
         Product productSaved = productRepository.save(product);
-        log.info("ProductServiceImpl.create - end- output [{}]", productSaved);
+        log.info("ProductServiceImpl.create - end- output [{}]", productSaved.getId());
         return productSaved;
     }
 
     @Override
     public Product replace(Product product) {
+
         return null;
     }
 
-    @Override
-    public String generateCode() {
-        return null;
+
+    public void generateCodeValid(Product product) {
+        if (product.getProductCategory() == null) {
+            throw new IllegalArgumentException(ErrorCodes.PRODUCT_CATEGORY_NOT_FOUND);
+        }
+        String code;
+        do {
+            code = CodeUtil.generateCode(product.getProductCategory());
+            if (!productRepository.findByCode(code).isPresent()) {
+                product.setCode(code);
+            }
+        } while (product.getCode() == null);
+        product.setCode(code);
     }
 }
