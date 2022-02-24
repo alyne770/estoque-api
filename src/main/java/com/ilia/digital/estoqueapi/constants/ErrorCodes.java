@@ -1,12 +1,13 @@
 package com.ilia.digital.estoqueapi.constants;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
-@AllArgsConstructor
-public enum ErrorCodes {
-    PRODUCT_NOT_FOUND("Product Not Found");
 
-    private final String message;
+
+
+public final class ErrorCodes {
+    public  static final String PRODUCT_NOT_FOUND= "Product Not Found";
+    public static final String PRODUCT_CATEGORY_NOT_FOUND= "Product Category Not Found";
+
+    private ErrorCodes() {
+    }
 }

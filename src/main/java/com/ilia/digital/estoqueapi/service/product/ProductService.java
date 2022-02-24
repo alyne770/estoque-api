@@ -8,9 +8,13 @@ import org.springframework.data.domain.Pageable;
 public interface ProductService {
 
     Product findById(long id);
+
     Page<Product> findAByNameOrCode(Pageable pageable, String searchTerm);
+
     Product create(CreateProductDto createProductDto);
-    Product replace ( Product product);
-    String generateCode();
+
+    Product replace(Product product);
+
+    void generateCodeValid(Product product);
 
 }
