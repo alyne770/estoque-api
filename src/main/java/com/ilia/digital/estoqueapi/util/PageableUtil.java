@@ -13,8 +13,8 @@ public  interface PageableUtil {
 
         return PageRequest.of(page == null ? DefaultValues.PAGE: page,
                 size == null ? DefaultValues.QUANTITY_ELEMENTS: size,
-                Sort.Direction.valueOf(sort.toUpperCase()),
-                orderBy );
+                sort == null || sort.isEmpty()? Sort.Direction.valueOf(DefaultValues.SORT): Sort.Direction.valueOf(sort.toUpperCase()),
+                orderBy == null || orderBy.isEmpty()  ? DefaultValues.ORDER_BY: orderBy );
     }
 
 }

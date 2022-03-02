@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 
 
 @Slf4j
@@ -27,7 +29,7 @@ public class ProductController {
     @GetMapping
     public Page<Product> search(@RequestParam(value = "page", required = false) final Integer page,
                                 @RequestParam(value = "size", required = false) final Integer size,
-                                @RequestParam(value = "sort") final String sort,
+                                @RequestParam(value = "sort", required = false) final String sort,
                                 @RequestParam(value = "orderBy") final String orderBy,
                                 @RequestParam(value = "searchTerm", required = false, defaultValue = "") final String searchTerm) {
 
@@ -54,6 +56,7 @@ public class ProductController {
         log.info("ProductController.replace - end - outPut  [{}]", productUpdate.getId());
         return new ResponseEntity<>(productUpdate, HttpStatus.OK);
     }
+
 
 }
 
