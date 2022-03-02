@@ -12,41 +12,7 @@
 					"name": "search",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/product/?page=&size&sort=asc&orderBy=name&searchTerm",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"product",
-								""
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": ""
-								},
-								{
-									"key": "size",
-									"value": null
-								},
-								{
-									"key": "sort",
-									"value": "asc"
-								},
-								{
-									"key": "orderBy",
-									"value": "name"
-								},
-								{
-									"key": "searchTerm",
-									"value": null
-								}
-							]
-						}
+						"header": []
 					},
 					"response": []
 				},
@@ -57,35 +23,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Tênis Esportivo\",\r\n    \"description\":\"Fabricado com nano tecnologia.\",\r\n    \"price\" : 239.90,\r\n    \"productCategory\": 0\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{   \"id\":2,\r\n    \"name\":\"Mesa De Madeira\",\r\n    \"description\":\"Fabricado com Aroeira.\",\r\n    \"price\" : 249.90,\r\n    \"productCategory\": 2\r\n\r\n}",
+							"raw": "{\r\n    \"name\":\"Tênis Esportivo\",\r\n    \"code\":\"#5756\",\r\n    \"description\":\"Fabricado com nano tecnologia.\",\r\n    \"price\" : 239.90,\r\n    \"productCategory\": 0\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
