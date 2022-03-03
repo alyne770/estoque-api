@@ -16,6 +16,6 @@ public interface ProductService {
 
     Product replace(UpdateProductDto updateProductDto);
 
-    void generateCodeValid(Product product);
+    void setValidCode(Product product);
 
 }

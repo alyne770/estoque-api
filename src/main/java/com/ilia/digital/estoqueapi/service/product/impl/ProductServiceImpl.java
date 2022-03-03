@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
         log.info("ProductServiceImpl.create - start - input  [{}]", createProductDto);
         Product product = modelMapper.map(createProductDto, Product.class);
 
-        generateCodeValid(product);
+        setValidCode(product);
 
         Product productSaved = productRepository.save(product);
         log.info("ProductServiceImpl.create - end- output [{}]", productSaved.getId());
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product productCurrent = findById(product.getId());
         if( productCurrent.getCode() == null){
-            generateCodeValid(product);
+            setValidCode(product);
         }else{
             product.setCode(productCurrent.getCode());
         }
@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    public void generateCodeValid(Product product) {
+    public void setValidCode(Product product) {
         if (product.getProductCategory() == null) {
             throw new IllegalArgumentException(ErrorCodes.PRODUCT_CATEGORY_NOT_FOUND);
         }
@@ -91,5 +91,6 @@ public class ProductServiceImpl implements ProductService {
             }
         } while (product.getCode() == null);
         product.setCode(code);
+
     }
 }
