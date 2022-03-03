@@ -7,7 +7,7 @@ import com.ilia.digital.estoqueapi.domain.Product;
 import com.ilia.digital.estoqueapi.exception.BadRequestException;
 import com.ilia.digital.estoqueapi.repository.ProductRepository;
 import com.ilia.digital.estoqueapi.service.product.impl.ProductServiceImpl;
-import com.ilia.digital.estoqueapi.util.CodeUtil;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.assertj.core.api.Assertions;
@@ -21,7 +21,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
-import java.text.DecimalFormat;
+
 import java.util.Optional;
 
 
@@ -32,9 +32,6 @@ class ProductServiceImplTest {
     ProductServiceImpl productServiceImpl;
     @Mock
     ProductRepository productRepository;
-    @Mock
-    CodeUtil codeUtil;
-
 
     @Test
     void findById_cannotReturnNullOrDifferentProductIfProductExists() {
