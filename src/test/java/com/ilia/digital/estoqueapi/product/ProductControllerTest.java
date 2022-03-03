@@ -1,6 +1,7 @@
-package com.ilia.digital.estoqueapi.controller;
+package com.ilia.digital.estoqueapi.product;
 
 import com.ilia.digital.estoqueapi.MockUtil;
+import com.ilia.digital.estoqueapi.controller.ProductController;
 import com.ilia.digital.estoqueapi.domain.Product;
 import com.ilia.digital.estoqueapi.dto.CreateProductDto;
 import com.ilia.digital.estoqueapi.dto.UpdateProductDto;
@@ -14,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -30,7 +30,7 @@ class ProductControllerTest {
 
 
     @Test
-     void search() {
+     void search_listCannotBeNUllOrEmpty() {
         BDDMockito.when(productService.findAByNameOrCode(ArgumentMatchers.any(Pageable.class),
                         ArgumentMatchers.any(String.class))).thenReturn(
                                 new PageImpl<>(List.of(MockUtil.getProductWithId())));
@@ -43,7 +43,7 @@ class ProductControllerTest {
     }
 
     @Test
-     void create() {
+     void create_productCannotBeNullOrGetChanges() {
 
 
         BDDMockito.when(productService.create(ArgumentMatchers.any(CreateProductDto.class))).thenReturn(MockUtil.getProductWithId());
@@ -56,7 +56,7 @@ class ProductControllerTest {
     }
 
     @Test
-     void replace() {
+     void replace_productCannotBeNullOrGetChanges() {
         Product substituteProduct = MockUtil.getProductWithId();
         substituteProduct.setName("Name of Product 2");
         substituteProduct.setCode("HB-110000");
