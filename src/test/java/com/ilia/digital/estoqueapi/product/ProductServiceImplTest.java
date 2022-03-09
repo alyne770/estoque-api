@@ -67,12 +67,5 @@ class ProductServiceImplTest {
     void replace() {
     }
 
-//    @Test
-//    void setValidCode() {
-//        BDDMockito.when(ArgumentMatchers.any(Optional.class).isPresent())
-//              .thenReturn(true);
-//        Product product = MockUtil.getProductWithId();
-//        productServiceImpl.setValidCode(product);
-//        DecimalFormat format = new DecimalFormat(product.getProductCategory().getCode()+"-000000");
-//    }
+
 }
