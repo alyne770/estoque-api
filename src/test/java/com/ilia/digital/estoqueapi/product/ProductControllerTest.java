@@ -1,10 +1,9 @@
 package com.ilia.digital.estoqueapi.product;
 
-import com.ilia.digital.estoqueapi.MockUtil;
 import com.ilia.digital.estoqueapi.controller.ProductController;
 import com.ilia.digital.estoqueapi.domain.Product;
-import com.ilia.digital.estoqueapi.dto.CreateProductDto;
-import com.ilia.digital.estoqueapi.dto.UpdateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.CreateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.UpdateProductDto;
 import com.ilia.digital.estoqueapi.service.product.ProductService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

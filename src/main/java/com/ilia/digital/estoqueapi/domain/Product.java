@@ -1,5 +1,7 @@
 package com.ilia.digital.estoqueapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,6 +15,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long id;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "product", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private ProductStock productStock;
+
     @NotEmpty(message = "The name of product cannot is empty")
     private  String name;
     @Column(unique = true)

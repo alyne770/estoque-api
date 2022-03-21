@@ -9,12 +9,14 @@ import java.util.List;
 @Data
 public class ProductStock {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long id;
 
     @OneToOne
+    @MapsId
     private  Product product;
 
     @OneToMany
     private List<RecordChangeProductStock> recordChangeProductStocks;
+
+    private Integer quantity;
 }

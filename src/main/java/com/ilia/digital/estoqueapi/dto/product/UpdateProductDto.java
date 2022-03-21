@@ -1,4 +1,4 @@
-package com.ilia.digital.estoqueapi.dto;
+package com.ilia.digital.estoqueapi.dto.product;
 
 import com.ilia.digital.estoqueapi.domain.ProductCategory;
 import lombok.Data;
@@ -8,7 +8,10 @@ import javax.validation.constraints.NotNull;
 
 
 @Data
-public class CreateProductDto {
+public class UpdateProductDto {
+
+    @NotNull(message = "The product id cannot be null")
+    private  long id;
     @NotEmpty(message = "The product name cannot be empty")
     private  String name;
     private String description;

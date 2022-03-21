@@ -1,4 +1,4 @@
-package com.ilia.digital.estoqueapi;
+package com.ilia.digital.estoqueapi.product;
 
 import com.ilia.digital.estoqueapi.domain.Product;
 import com.ilia.digital.estoqueapi.domain.ProductCategory;

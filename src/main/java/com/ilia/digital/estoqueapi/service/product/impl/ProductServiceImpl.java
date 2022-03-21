@@ -2,8 +2,8 @@ package com.ilia.digital.estoqueapi.service.product.impl;
 
 import com.ilia.digital.estoqueapi.constants.ErrorCodes;
 import com.ilia.digital.estoqueapi.domain.Product;
-import com.ilia.digital.estoqueapi.dto.CreateProductDto;
-import com.ilia.digital.estoqueapi.dto.UpdateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.CreateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.UpdateProductDto;
 import com.ilia.digital.estoqueapi.exception.BadRequestException;
 import com.ilia.digital.estoqueapi.repository.ProductRepository;
 import com.ilia.digital.estoqueapi.service.product.ProductService;
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(createProductDto, Product.class);
 
         setValidCode(product);
-
+        product.getProductStock().setProduct(product);
         Product productSaved = productRepository.save(product);
         log.info("ProductServiceImpl.create - end- output [{}]", productSaved.getId());
         return productSaved;

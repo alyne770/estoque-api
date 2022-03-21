@@ -1,8 +1,8 @@
 package com.ilia.digital.estoqueapi.service.product;
 
 import com.ilia.digital.estoqueapi.domain.Product;
-import com.ilia.digital.estoqueapi.dto.CreateProductDto;
-import com.ilia.digital.estoqueapi.dto.UpdateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.CreateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.UpdateProductDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

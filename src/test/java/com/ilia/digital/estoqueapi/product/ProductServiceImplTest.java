@@ -1,11 +1,10 @@
 package com.ilia.digital.estoqueapi.product;
 
-import com.ilia.digital.estoqueapi.MockUtil;
-
 import com.ilia.digital.estoqueapi.domain.Product;
 
-import com.ilia.digital.estoqueapi.dto.CreateProductDto;
-import com.ilia.digital.estoqueapi.dto.UpdateProductDto;
+import com.ilia.digital.estoqueapi.domain.ProductCategory;
+import com.ilia.digital.estoqueapi.dto.product.CreateProductDto;
+import com.ilia.digital.estoqueapi.dto.product.UpdateProductDto;
 import com.ilia.digital.estoqueapi.exception.BadRequestException;
 import com.ilia.digital.estoqueapi.repository.ProductRepository;
 import com.ilia.digital.estoqueapi.service.product.impl.ProductServiceImpl;
@@ -81,7 +80,12 @@ class ProductServiceImplTest {
     void create() {
         BDDMockito.when(productRepository.save(ArgumentMatchers.any(Product.class))).thenReturn(MockUtil.getProductWithId());
 
-        CreateProductDto createProduct = mapper.map(MockUtil.getProductWithOutId(),CreateProductDto.class);
+        CreateProductDto createProduct = new CreateProductDto();
+        createProduct.setName("Name of Product");
+        createProduct.setDescription("Description");
+        createProduct.setPrice(0.0f);
+        createProduct.setProductCategory(ProductCategory.HOBBY);
+        //createProduct  = mapper.map(MockUtil.getProductWithOutId(),CreateProductDto.class);
         Product product = productServiceImpl.create(createProduct);
 
         Assertions.assertThat(product).isNotNull().isEqualTo(MockUtil.getProductWithId());
