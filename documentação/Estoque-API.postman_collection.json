@@ -14,7 +14,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/product/?page=&size&sort=asc&orderBy=name&searchTerm",
+							"raw": "http://localhost:8080/product/?page=&size=&sort=asc&orderBy=id&searchTerm=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -31,7 +31,7 @@
 								},
 								{
 									"key": "size",
-									"value": null
+									"value": ""
 								},
 								{
 									"key": "sort",
@@ -39,11 +39,11 @@
 								},
 								{
 									"key": "orderBy",
-									"value": "name"
+									"value": "id"
 								},
 								{
 									"key": "searchTerm",
-									"value": null
+									"value": ""
 								}
 							]
 						}
@@ -57,7 +57,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Tênis Esportivo\",\r\n    \"description\":\"Fabricado com nano tecnologia.\",\r\n    \"price\" : 239.90,\r\n    \"productCategory\": 0\r\n\r\n}",
+							"raw": "{\r\n    \"name\":\"Tênis\",\r\n    \"description\":\"Fabricado com nano tecnologia.\",\r\n    \"price\" : 239.90,\r\n    \"productCategory\": 0,\r\n    \"productStockQuantity\":50\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
