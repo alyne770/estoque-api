@@ -65,6 +65,8 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(updateProductDto, Product.class);
 
         Product productCurrent = findById(product.getId());
+        product.setProductStock(productCurrent.getProductStock());
+
         if( productCurrent.getCode() == null){
             setValidCode(product);
         }else{

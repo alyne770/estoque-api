@@ -20,6 +20,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -39,7 +40,8 @@ class ProductServiceImplTest {
     @Mock
     ProductRepository productRepository;
     @Mock
-    ModelMapper mapper;
+    ModelMapper modelMapper;
+
     @Test
     void findById_cannotReturnNullOrDifferentProductIfProductExists() {
 
@@ -63,7 +65,7 @@ class ProductServiceImplTest {
 
 
     @Test
-    void findAByNameOrCode() {
+    void findAByNameOrCode_CannotEmptyAndIfSearchTermDefault() {
         BDDMockito.when(productRepository.findAByNameOrCode(ArgumentMatchers.any(Pageable.class),
                 ArgumentMatchers.anyString())).thenReturn(new PageImpl(List.of(MockUtil.getProductWithId())));
 
@@ -77,31 +79,25 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void create() {
-        BDDMockito.when(productRepository.save(ArgumentMatchers.any(Product.class))).thenReturn(MockUtil.getProductWithId());
+    void create_cannotNullAndTheProductCannotDifferentToInitial() {
 
-        CreateProductDto createProduct = new CreateProductDto();
-        createProduct.setName("Name of Product");
-        createProduct.setDescription("Description");
-        createProduct.setPrice(0.0f);
-        createProduct.setProductCategory(ProductCategory.HOBBY);
-        //createProduct  = mapper.map(MockUtil.getProductWithOutId(),CreateProductDto.class);
-        Product product = productServiceImpl.create(createProduct);
+        BDDMockito.when(productRepository.save(ArgumentMatchers.any(Product.class))).thenReturn(MockUtil.getProductWithId());
+        BDDMockito.when(modelMapper.map(ArgumentMatchers.any(),ArgumentMatchers.any())).thenReturn(MockUtil.getProductWithId());
+        Product product = productServiceImpl.create(MockUtil.getCreateProductDto());
 
         Assertions.assertThat(product).isNotNull().isEqualTo(MockUtil.getProductWithId());
+
     }
 
     @Test
-    void replace() {
-        Product substituteProduct =  MockUtil.getProductWithId();
-        substituteProduct.setName("Name of Product 2");
-        substituteProduct.setCode("HB-110000");
+    void replace_cannotNullAndTheProductCannotDifferentToInitial() {
+        BDDMockito.when(productRepository.save(ArgumentMatchers.any(Product.class))).thenReturn(MockUtil.getProductWithIdWithChanges());
+        BDDMockito.when(modelMapper.map(ArgumentMatchers.any(),ArgumentMatchers.any())).thenReturn(MockUtil.getProductWithId());
+        BDDMockito.when(productRepository.findById(ArgumentMatchers.any())).thenReturn(Optional.of(MockUtil.getProductWithId()));
 
-        BDDMockito.when(productRepository.save(ArgumentMatchers.any(Product.class))).thenReturn(substituteProduct);
+        Product product = productServiceImpl.replace(MockUtil.getUpdateProductDto());
 
-        Product product = productServiceImpl.replace(new UpdateProductDto());
-
-        Assertions.assertThat(product).isNotNull().isEqualTo(substituteProduct);
+        Assertions.assertThat(product).isNotNull().isEqualTo(MockUtil.getProductWithIdWithChanges());
     }
 
 
