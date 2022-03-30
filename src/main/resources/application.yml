@@ -5,7 +5,7 @@ spring:
     password: 123456
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 management:
   endpoints:
@@ -13,3 +13,6 @@ management:
       exposure:
         include: info, health, metrics, prometheus
 
+
+server:
+  port: 8085

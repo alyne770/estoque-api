@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  long id;
+    private long id;
 
     @JsonIgnore
     @OneToOne(mappedBy = "product", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
@@ -36,8 +36,7 @@ public class Product {
     private ProductCategory productCategory;
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
 
         if(this == obj)
             return true;
@@ -48,10 +47,9 @@ public class Product {
 
         Product product = (Product) obj;
 
-        return ( product.id == this.id && product.name.equals(this.name)   && product.code.equals(this.code)
+        return (product.id == this.id && product.name.equals(this.name) && product.code.equals(this.code)
                 && product.description.equals(this.description) && product.price.equals(this.price)
                 && product.productCategory == this.productCategory
-                && product.productStock.equals(this.productStock))
-                ;
+                && product.productStock.equals(this.productStock));
     }
 }

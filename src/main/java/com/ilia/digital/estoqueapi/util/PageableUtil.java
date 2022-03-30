@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 public  interface PageableUtil {
 
 
-    static Pageable configuringPageable(Integer page, Integer  size, String sort, String orderBy ){
+    static Pageable configuringPageable(Integer page, Integer size, String sort, String orderBy ){
 
         return PageRequest.of(page == null ? DefaultValues.PAGE: page,
                 size == null ? DefaultValues.QUANTITY_ELEMENTS: size,

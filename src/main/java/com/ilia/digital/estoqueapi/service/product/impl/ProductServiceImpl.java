@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Product findById(long id) {
+    public Product findById(final long id) {
         log.info("ProductServiceImpl.findById - start - input [{}]", id);
         Product productFound = productRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException(ErrorCodes.PRODUCT_NOT_FOUND));
@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product replace(UpdateProductDto updateProductDto) {
+    public Product replace(final UpdateProductDto updateProductDto) {
 
         log.info("ProductServiceImpl.replace - start - input  [{}]", updateProductDto.getId());
         Product product = modelMapper.map(updateProductDto, Product.class);
@@ -67,15 +67,15 @@ public class ProductServiceImpl implements ProductService {
         Product productCurrent = findById(product.getId());
         product.setProductStock(productCurrent.getProductStock());
 
-        if( productCurrent.getCode() == null){
+        if (productCurrent.getCode() == null) {
             setValidCode(product);
-        }else{
+        } else {
             product.setCode(productCurrent.getCode());
         }
 
         Product productUpdate = productRepository.save(product);
 
-        
+
         log.info("ProductServiceImpl.replace - end- output [{}]", productUpdate.getId());
         return productUpdate;
     }

@@ -20,7 +20,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,6 +36,7 @@ import java.util.Optional;
 class ProductServiceImplTest {
     @InjectMocks
     ProductServiceImpl productServiceImpl;
+
     @Mock
     ProductRepository productRepository;
     @Mock
@@ -86,6 +86,7 @@ class ProductServiceImplTest {
         Product product = productServiceImpl.create(MockUtil.getCreateProductDto());
 
         Assertions.assertThat(product).isNotNull().isEqualTo(MockUtil.getProductWithId());
+        Assertions.assertThat(product.getId()).isEqualTo(product.getProductStock().getId());
 
     }
 
